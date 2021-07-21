@@ -2,6 +2,7 @@
 import hashlib
 import json
 import time
+import base64
 
 import requests
 
@@ -38,7 +39,7 @@ baseURL = config["baseURL"]
 url = baseURL + api_uri
 
 payload = {
-    "action": "show",
+    "action": "mod",
     "ts": ts,
     "sign": sign,
 }
@@ -53,7 +54,10 @@ data = {
     "upload_location": 0
 }
 
-r = requests.get(url, params=payload, allow_redirects=False)
+r = requests.post(url,
+                  params=payload,
+                  allow_redirects=False,
+                  data=json.dumps(data))
 print(r.json())
 
 # %%
